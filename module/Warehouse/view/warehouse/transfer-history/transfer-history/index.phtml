@@ -1,0 +1,79 @@
+<h2>Stock Transfer History</h2>
+
+<p>
+    <a href="/warehouse/public/dashboard">
+        Back to Dashboard
+    </a>
+</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+
+    <tr>
+        <th>Transfer ID</th>
+        <th>Product</th>
+        <th>From Warehouse</th>
+        <th>To Warehouse</th>
+        <th>Quantity</th>
+        <th>Date</th>
+        <th>Created By</th>
+    </tr>
+
+    <?php foreach ($transfers as $transfer): ?>
+
+        <tr>
+
+            <td>
+                #<?= (int) $transfer['TransferOutID']; ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $transfer['ProductCode']
+                ); ?>
+                -
+                <?= htmlspecialchars(
+                    $transfer['ProductName']
+                ); ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $transfer['FromWarehouseCode']
+                ); ?>
+                -
+                <?= htmlspecialchars(
+                    $transfer['FromWarehouseName']
+                ); ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $transfer['ToWarehouseCode']
+                ); ?>
+                -
+                <?= htmlspecialchars(
+                    $transfer['ToWarehouseName']
+                ); ?>
+            </td>
+
+            <td>
+                <?= (int) $transfer['Quantity']; ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $transfer['TransactionDate']
+                ); ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $transfer['Username'] ?? 'System'
+                ); ?>
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>

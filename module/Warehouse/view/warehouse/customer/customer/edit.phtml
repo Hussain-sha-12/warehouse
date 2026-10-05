@@ -1,0 +1,86 @@
+<h2>Edit Customer</h2>
+
+<?php if ($error): ?>
+    <p style="color:red;">
+        <?= $this->escapeHtml($error) ?>
+    </p>
+<?php endif; ?>
+
+<form method="post">
+
+    <p>
+        <label>Customer Code</label><br>
+        <input type="text"
+               name="CustomerCode"
+               value="<?= $this->escapeHtmlAttr(
+                   $customer['CustomerCode']
+               ) ?>"
+               required>
+    </p>
+
+    <p>
+        <label>Customer Name</label><br>
+        <input type="text"
+               name="CustomerName"
+               value="<?= $this->escapeHtmlAttr(
+                   $customer['CustomerName']
+               ) ?>"
+               required>
+    </p>
+
+    <p>
+        <label>Phone</label><br>
+        <input type="text"
+               name="Phone"
+               value="<?= $this->escapeHtmlAttr(
+                   $customer['Phone']
+               ) ?>">
+    </p>
+
+    <p>
+        <label>Email</label><br>
+        <input type="email"
+               name="Email"
+               value="<?= $this->escapeHtmlAttr(
+                   $customer['Email']
+               ) ?>">
+    </p>
+
+    <p>
+        <label>Address</label><br>
+        <textarea name="Address"
+                  rows="4"
+                  cols="40"><?= $this->escapeHtml(
+                      $customer['Address']
+                  ) ?></textarea>
+    </p>
+
+    <p>
+        <label>Status</label><br>
+
+        <select name="IsActive">
+
+            <option value="1"
+                <?= $customer['IsActive'] ? 'selected' : '' ?>>
+                Active
+            </option>
+
+            <option value="0"
+                <?= !$customer['IsActive'] ? 'selected' : '' ?>>
+                Inactive
+            </option>
+
+        </select>
+    </p>
+
+    <button type="submit">
+        Update Customer
+    </button>
+
+</form>
+
+<p>
+    <a href="<?= $this->url('customers') ?>">
+        Back to Customers
+    </a>
+</p>

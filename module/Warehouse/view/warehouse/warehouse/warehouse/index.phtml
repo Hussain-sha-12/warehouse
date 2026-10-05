@@ -1,0 +1,105 @@
+<h2>Warehouses</h2>
+
+<p>
+    <a href="<?= $this->url('warehouse-create') ?>">
+        Create New Warehouse
+    </a>
+</p>
+
+<table border="1" cellpadding="10" cellspacing="0">
+
+    <tr>
+        <th>ID</th>
+        <th>Warehouse Code</th>
+        <th>Warehouse Name</th>
+        <th>Location</th>
+        <th>Status</th>
+        <th>Created Date</th>
+        <th>Action</th>
+    </tr>
+
+    <?php if (count($warehouses) === 0): ?>
+
+        <tr>
+            <td colspan="7">
+                No warehouses found.
+            </td>
+        </tr>
+
+    <?php else: ?>
+
+        <?php foreach ($warehouses as $warehouse): ?>
+
+            <tr>
+
+                <td>
+                    <?= (int) $warehouse['WarehouseID'] ?>
+                </td>
+
+                <td>
+                    <?= $this->escapeHtml(
+                        $warehouse['WarehouseCode']
+                    ) ?>
+                </td>
+
+                <td>
+                    <?= $this->escapeHtml(
+                        $warehouse['WarehouseName']
+                    ) ?>
+                </td>
+
+                <td>
+                    <?= $this->escapeHtml(
+                        $warehouse['Location']
+                    ) ?>
+                </td>
+
+                <td>
+                    <?= $warehouse['IsActive']
+                        ? 'Active'
+                        : 'Inactive'
+                    ?>
+                </td>
+
+                <td>
+                    <?= $this->escapeHtml(
+                        $warehouse['CreatedDate']
+                    ) ?>
+                </td>
+
+                <td>
+
+                    <a href="<?= $this->url(
+                        'warehouse-edit',
+                        ['id' => $warehouse['WarehouseID']]
+                    ) ?>">
+                        Edit
+                    </a>
+
+                    |
+
+                    <a href="<?= $this->url(
+                        'warehouse-delete',
+                        ['id' => $warehouse['WarehouseID']]
+                    ) ?>"
+                       onclick="return confirm('Delete this warehouse?');">
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+
+        <?php endforeach; ?>
+
+    <?php endif; ?>
+
+</table>
+
+<hr>
+
+<p>
+    <a href="<?= $this->url('dashboard') ?>">
+        ← Dashboard
+    </a>
+</p>

@@ -1,0 +1,48 @@
+<h2>Stock OUT</h2>
+
+<p>Select a product to remove stock.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+
+    <tr>
+        <th>Product ID</th>
+        <th>Product Code</th>
+        <th>Product Name</th>
+        <th>Action</th>
+    </tr>
+
+    <?php foreach ($products as $product): ?>
+
+        <tr>
+
+            <td>
+                <?= $this->escapeHtml($product['ProductID']) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($product['ProductCode']) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($product['ProductName']) ?>
+            </td>
+
+            <td>
+                <a href="<?= $this->url('stock-out/remove', [
+                    'id' => $product['ProductID']
+                ]) ?>">
+                    Remove Stock
+                </a>
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>
+
+<br>
+
+<a href="<?= $this->url('inventory') ?>">
+    Inventory
+</a>

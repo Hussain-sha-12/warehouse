@@ -1,0 +1,47 @@
+<h1>Product Management</h1>
+
+<a href="/product/add">Add Product</a>
+
+<br><br>
+
+<table border="1" cellpadding="10" cellspacing="0">
+    <tr>
+        <th>ID</th>
+        <th>Product Code</th>
+        <th>Product Name</th>
+        <th>Category ID</th>
+        <th>Unit Price</th>
+        <th>Reorder Level</th>
+        <th>Active</th>
+        <th>Created Date</th>
+        <th>Action</th>
+    
+    </tr>
+
+    <?php foreach ($products as $product): ?>
+        <tr>
+            <td><?= $product['ProductID']; ?></td>
+            <td><?= $product['ProductCode']; ?></td>
+            <td><?= $product['ProductName']; ?></td>
+            <td><?= $product['CategoryID']; ?></td>
+            <td><?= $product['UnitPrice']; ?></td>
+            <td><?= $product['ReorderLevel']; ?></td>
+            <td><?= $product['IsActive'] ? 'Yes' : 'No'; ?></td>
+            <td><?= $product['CreatedDate']; ?></td>
+             <td>
+                <a href="/product/edit/<?= $product['ProductID']; ?>">
+                    Edit
+                </a>
+
+                &nbsp; | &nbsp;
+
+                <a
+                    href="/product/delete/<?= $product['ProductID']; ?>"
+                    onclick="return confirm('Are you sure you want to deactivate this product?');"
+                >
+                    Delete
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>

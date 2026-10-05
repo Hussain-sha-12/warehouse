@@ -1,0 +1,143 @@
+<h2>Sales Order Details</h2>
+
+<p>
+    <a href="<?= $this->url('sales') ?>">
+        ← Back to Sales Orders
+    </a>
+</p>
+
+<hr>
+
+<h3>Order Information</h3>
+
+<table border="1" cellpadding="10" cellspacing="0">
+
+    <tr>
+        <th>Sales Order Number</th>
+        <td>
+            <?= $this->escapeHtml($sale['SalesOrderNumber']) ?>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Customer Code</th>
+        <td>
+            <?= $this->escapeHtml($sale['CustomerCode']) ?>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Customer Name</th>
+        <td>
+            <?= $this->escapeHtml($sale['CustomerName']) ?>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Phone</th>
+        <td>
+            <?= $this->escapeHtml($sale['Phone']) ?>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Email</th>
+        <td>
+            <?= $this->escapeHtml($sale['Email']) ?>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Address</th>
+        <td>
+            <?= $this->escapeHtml($sale['Address']) ?>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Order Date</th>
+        <td>
+            <?= $this->escapeHtml($sale['OrderDate']) ?>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Status</th>
+        <td>
+            <?= $this->escapeHtml($sale['Status']) ?>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Total Amount</th>
+        <td>
+            ₹<?= number_format(
+                (float) $sale['TotalAmount'],
+                2
+            ) ?>
+        </td>
+    </tr>
+
+</table>
+
+<hr>
+
+<h3>Products</h3>
+
+<table border="1" cellpadding="10" cellspacing="0">
+
+    <tr>
+        <th>Product Code</th>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>Total Amount</th>
+    </tr>
+
+    <?php foreach ($items as $item): ?>
+
+        <tr>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $item['ProductCode']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $item['ProductName']
+                ) ?>
+            </td>
+
+            <td>
+                <?= (int) $item['Quantity'] ?>
+            </td>
+
+            <td>
+                ₹<?= number_format(
+                    (float) $item['UnitPrice'],
+                    2
+                ) ?>
+            </td>
+
+            <td>
+                ₹<?= number_format(
+                    (float) $item['TotalAmount'],
+                    2
+                ) ?>
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>
+
+<hr>
+
+<p>
+    <a href="<?= $this->url('sales') ?>">
+        Back to Sales Orders
+    </a>
+</p>

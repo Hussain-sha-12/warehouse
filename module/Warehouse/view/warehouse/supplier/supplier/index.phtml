@@ -1,0 +1,83 @@
+<h2>Suppliers</h2>
+
+<p>
+    <a href="<?= $this->url('supplier/add') ?>">
+        + Add Supplier
+    </a>
+</p>
+
+<table border="1" cellpadding="10" cellspacing="0">
+
+    <tr>
+        <th>ID</th>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    <?php foreach ($suppliers as $supplier): ?>
+
+        <tr>
+
+            <td><?= (int) $supplier['SupplierID'] ?></td>
+
+            <td>
+                <?= $this->escapeHtml($supplier['SupplierCode']) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($supplier['SupplierName']) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($supplier['Phone']) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($supplier['Email']) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($supplier['Address']) ?>
+            </td>
+
+            <td>
+                <?= $supplier['IsActive'] ? 'Active' : 'Inactive' ?>
+            </td>
+
+            <td>
+                <a href="<?= $this->url(
+                    'supplier/edit',
+                    ['id' => $supplier['SupplierID']]
+                ) ?>">
+                    Edit
+                </a>
+
+                |
+
+                <a href="<?= $this->url(
+                    'supplier/delete',
+                    ['id' => $supplier['SupplierID']]
+                ) ?>"
+                onclick="return confirm('Delete this supplier?');">
+                    Delete
+                </a>
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>
+
+<hr>
+
+<p>
+    <a href="/dashboard">
+        Back to Dashboard
+    </a>
+</p>

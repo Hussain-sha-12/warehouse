@@ -1,0 +1,83 @@
+<h2>Edit Warehouse</h2>
+
+<?php if ($error): ?>
+
+    <p style="color:red;">
+        <?= $this->escapeHtml($error) ?>
+    </p>
+
+<?php endif; ?>
+
+<form method="post">
+
+    <p>
+        <label>Warehouse Code</label><br>
+
+        <input
+            type="text"
+            name="WarehouseCode"
+            value="<?= $this->escapeHtmlAttr(
+                $warehouse['WarehouseCode']
+            ) ?>"
+            required
+        >
+    </p>
+
+    <p>
+        <label>Warehouse Name</label><br>
+
+        <input
+            type="text"
+            name="WarehouseName"
+            value="<?= $this->escapeHtmlAttr(
+                $warehouse['WarehouseName']
+            ) ?>"
+            required
+        >
+    </p>
+
+    <p>
+        <label>Location</label><br>
+
+        <input
+            type="text"
+            name="Location"
+            value="<?= $this->escapeHtmlAttr(
+                $warehouse['Location']
+            ) ?>"
+        >
+    </p>
+
+    <p>
+        <label>Status</label><br>
+
+        <select name="IsActive">
+
+            <option
+                value="1"
+                <?= $warehouse['IsActive'] ? 'selected' : '' ?>
+            >
+                Active
+            </option>
+
+            <option
+                value="0"
+                <?= !$warehouse['IsActive'] ? 'selected' : '' ?>
+            >
+                Inactive
+            </option>
+
+        </select>
+    </p>
+
+    <button type="submit">
+        Update Warehouse
+    </button>
+
+</form>
+
+<p>
+    <a href="<?= $this->url('warehouses') ?>">
+        ← Back
+    </a>
+</p>

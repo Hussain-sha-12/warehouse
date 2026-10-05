@@ -1,0 +1,87 @@
+<h2>Edit User</h2>
+
+<?php if ($error): ?>
+
+    <p style="color:red;">
+        <?= $this->escapeHtml($error) ?>
+    </p>
+
+<?php endif; ?>
+
+<form method="post">
+
+    <p>
+        <label>Username</label><br>
+
+        <input
+            type="text"
+            name="Username"
+            value="<?= $this->escapeHtmlAttr(
+                $user['Username']
+            ) ?>"
+            required
+        >
+    </p>
+
+    <p>
+        <label>Role</label><br>
+
+        <select name="RoleID" required>
+
+            <option value="1"
+                <?= $user['RoleID'] == 1
+                    ? 'selected'
+                    : '' ?>>
+                Admin
+            </option>
+
+            <option value="2"
+                <?= $user['RoleID'] == 2
+                    ? 'selected'
+                    : '' ?>>
+                Manager
+            </option>
+
+            <option value="3"
+                <?= $user['RoleID'] == 3
+                    ? 'selected'
+                    : '' ?>>
+                Employee
+            </option>
+
+        </select>
+    </p>
+
+    <p>
+        <label>Status</label><br>
+
+        <select name="IsActive">
+
+            <option value="1"
+                <?= $user['IsActive']
+                    ? 'selected'
+                    : '' ?>>
+                Active
+            </option>
+
+            <option value="0"
+                <?= !$user['IsActive']
+                    ? 'selected'
+                    : '' ?>>
+                Inactive
+            </option>
+
+        </select>
+    </p>
+
+    <button type="submit">
+        Update User
+    </button>
+
+</form>
+
+<p>
+    <a href="<?= $this->url('user-management') ?>">
+        ← Back
+    </a>
+</p>

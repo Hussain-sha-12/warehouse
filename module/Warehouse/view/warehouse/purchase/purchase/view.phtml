@@ -1,0 +1,82 @@
+<h2>Purchase Order Details</h2>
+
+<p>
+    <strong>Purchase Order:</strong>
+    <?= htmlspecialchars($purchase['PurchaseOrderNumber']) ?>
+</p>
+
+<p>
+    <strong>Supplier:</strong>
+    <?= htmlspecialchars($purchase['SupplierName']) ?>
+</p>
+
+<p>
+    <strong>Warehouse:</strong>
+    <?= htmlspecialchars($purchase['WarehouseName']) ?>
+</p>
+
+<p>
+    <strong>Order Date:</strong>
+    <?= htmlspecialchars($purchase['OrderDate']) ?>
+</p>
+
+<p>
+    <strong>Status:</strong>
+    <?= htmlspecialchars($purchase['Status']) ?>
+</p>
+
+<p>
+    <strong>Total Amount:</strong>
+    <?= number_format((float) $purchase['TotalAmount'], 2) ?>
+</p>
+
+<hr>
+
+<h3>Products</h3>
+
+<table border="1" cellpadding="8" cellspacing="0">
+
+    <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Unit Cost</th>
+        <th>Total</th>
+    </tr>
+
+    <?php foreach ($items as $item): ?>
+
+        <tr>
+
+            <td>
+                <?= htmlspecialchars($item['ProductName']) ?>
+            </td>
+
+            <td>
+                <?= (int) $item['Quantity'] ?>
+            </td>
+
+            <td>
+                <?= number_format(
+                    (float) $item['UnitCost'],
+                    2
+                ) ?>
+            </td>
+
+            <td>
+                <?= number_format(
+                    (float) $item['TotalAmount'],
+                    2
+                ) ?>
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>
+
+<br>
+
+<a href="<?= $this->url('purchase') ?>">
+    Back to Purchases
+</a>

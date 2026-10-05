@@ -1,0 +1,71 @@
+<h2>Purchase Report</h2>
+
+<p>
+    <a href="<?= $this->url('reports') ?>">
+        ← Reports
+    </a>
+</p>
+
+<?php if (count($purchases) === 0): ?>
+
+    <p>No purchase orders found.</p>
+
+<?php else: ?>
+
+<table border="1" cellpadding="10" cellspacing="0">
+
+    <tr>
+        <th>Purchase ID</th>
+        <th>Purchase Order Number</th>
+        <th>Supplier</th>
+        <th>Order Date</th>
+        <th>Status</th>
+        <th>Total Amount</th>
+    </tr>
+
+    <?php foreach ($purchases as $purchase): ?>
+
+        <tr>
+
+            <td>
+                <?= (int) $purchase['PurchaseOrderID'] ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $purchase['PurchaseOrderNumber']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $purchase['SupplierName']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $purchase['OrderDate']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $purchase['Status']
+                ) ?>
+            </td>
+
+            <td>
+                ₹<?= number_format(
+                    (float) $purchase['TotalAmount'],
+                    2
+                ) ?>
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>
+
+<?php endif; ?>

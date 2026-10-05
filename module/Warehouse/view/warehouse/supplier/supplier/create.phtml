@@ -1,0 +1,44 @@
+<h2>Add Supplier</h2>
+
+<?php if ($error): ?>
+    <p style="color:red;">
+        <?= $this->escapeHtml($error) ?>
+    </p>
+<?php endif; ?>
+
+<form method="post">
+
+    <p>
+        <label>Supplier Code</label><br>
+        <input type="text" name="SupplierCode" required>
+    </p>
+
+    <p>
+        <label>Supplier Name</label><br>
+        <input type="text" name="SupplierName" required>
+    </p>
+
+    <p>
+        <label>Phone</label><br>
+        <input type="text" name="Phone">
+    </p>
+
+    <p>
+        <label>Email</label><br>
+        <input type="email" name="Email">
+    </p>
+
+    <p>
+        <label>Address</label><br>
+        <textarea name="Address"></textarea>
+    </p>
+
+    <button type="submit">Save Supplier</button>
+
+</form>
+
+<p>
+    <a href="<?= $this->url('supplier') ?>">
+        ← Back
+    </a>
+</p>

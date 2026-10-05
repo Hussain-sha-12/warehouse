@@ -1,0 +1,90 @@
+<h2>Stock Transfer</h2>
+
+<p>
+    <a href="/dashboard">
+        Back to Dashboard
+    </a>
+</p>
+
+<form method="post"
+      action="/stock-transfer/transfer">
+
+    <table>
+        <tr>
+            <td><strong>Product</strong></td>
+            <td>
+                <select name="ProductID" required>
+                    <option value="">Select Product</option>
+
+                    <?php foreach ($products as $product): ?>
+                        <option value="<?= (int) $product['ProductID']; ?>">
+                            <?= htmlspecialchars($product['ProductCode']); ?>
+                            -
+                            <?= htmlspecialchars($product['ProductName']); ?>
+                            (Stock: <?= (int) $product['Quantity']; ?>)
+                        </option>
+                    <?php endforeach; ?>
+
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong>From Warehouse</strong></td>
+            <td>
+                <select name="FromWarehouseID" required>
+                    <option value="">Select Source Warehouse</option>
+
+                    <?php foreach ($warehouses as $warehouse): ?>
+                        <option value="<?= (int) $warehouse['WarehouseID']; ?>">
+                            <?= htmlspecialchars($warehouse['WarehouseCode']); ?>
+                            -
+                            <?= htmlspecialchars($warehouse['WarehouseName']); ?>
+                        </option>
+                    <?php endforeach; ?>
+
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong>To Warehouse</strong></td>
+            <td>
+                <select name="ToWarehouseID" required>
+                    <option value="">Select Destination Warehouse</option>
+
+                    <?php foreach ($warehouses as $warehouse): ?>
+                        <option value="<?= (int) $warehouse['WarehouseID']; ?>">
+                            <?= htmlspecialchars($warehouse['WarehouseCode']); ?>
+                            -
+                            <?= htmlspecialchars($warehouse['WarehouseName']); ?>
+                        </option>
+                    <?php endforeach; ?>
+
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong>Quantity</strong></td>
+            <td>
+                <input
+                    type="number"
+                    name="Quantity"
+                    min="1"
+                    required
+                >
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit">
+                    Transfer Stock
+                </button>
+            </td>
+        </tr>
+    </table>
+
+</form>

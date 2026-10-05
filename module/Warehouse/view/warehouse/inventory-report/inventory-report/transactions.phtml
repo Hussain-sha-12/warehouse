@@ -1,0 +1,369 @@
+<h2>Stock Transaction History</h2>
+
+<p>
+    <a href="<?= $this->url('inventory-report') ?>">
+        Inventory Report
+    </a>
+</p>
+
+<hr>
+
+<h3>Filter Transactions</h3>
+
+<form method="post">
+
+    <label>Warehouse:</label>
+
+    <select name="WarehouseID">
+
+        <option value="">
+            All Warehouses
+        </option>
+
+        <?php foreach ($warehouses as $warehouse): ?>
+
+            <option
+                value="<?= (int) $warehouse['WarehouseID'] ?>"
+                <?= (
+                    (string) $warehouseId ===
+                    (string) $warehouse['WarehouseID']
+                ) ? 'selected' : '' ?>
+            >
+                <?= $this->escapeHtml(
+                    $warehouse['WarehouseName']
+                ) ?>
+            </option>
+
+        <?php endforeach; ?>
+
+    </select>
+
+    &nbsp;
+
+    <label>Transaction Type:</label>
+
+    <select name="TransactionType">
+
+        <option value="">
+            All
+        </option>
+
+        <option
+            value="IN"
+            <?= $transactionType === 'IN'
+                ? 'selected'
+                : '' ?>
+        >
+            Stock IN
+        </option>
+
+        <option
+            value="OUT"
+            <?= $transactionType === 'OUT'
+                ? 'selected'
+                : '' ?>
+        >
+            Stock OUT
+        </option>
+
+    </select>
+
+    <br><br>
+
+    <label>From Date:</label>
+
+    <input
+        type="date"
+        name="FromDate"
+        value="<?= $this->escapeHtml($fromDate) ?>"
+    >
+
+    &nbsp;
+
+    <label>To Date:</label>
+
+    <input
+        type="date"
+        name="ToDate"
+        value="<?= $this->escapeHtml($toDate) ?>"
+    >
+
+    &nbsp;
+
+    <button type="submit">
+        Filter
+    </button>
+
+    <a href="<?= $this->url(
+        'inventory-report-transactions'
+    ) ?>">
+        Clear
+    </a>
+
+</form>
+
+<hr>
+
+<?php if (!empty($error)): ?>
+
+    <p>
+        <strong>
+            <?= $this->escapeHtml($error) ?>
+        </strong>
+    </p>
+
+<?php endif; ?>
+
+<h3>
+    Transactions
+
+    <?php if ($totalRecords > 0): ?>
+
+        <small>
+            (<?= (int) $totalRecords ?> records)
+        </small>
+
+    <?php endif; ?>
+
+</h3>
+
+<?php if ($totalRecords > 0): ?>
+
+<table
+    border="1"
+    cellpadding="8"
+    cellspacing="0"
+>
+
+    <tr>
+
+        <th>ID</th>
+        <th>Product Code</th>
+        <th>Product Name</th>
+        <th>Warehouse</th>
+        <th>Type</th>
+        <th>Quantity</th>
+        <th>Reference</th>
+        <th>Reference ID</th>
+        <th>Date</th>
+        <th>Created By</th>
+
+    </tr>
+
+    <?php foreach ($transactions as $transaction): ?>
+
+        <tr>
+
+            <td>
+                <?= (int) $transaction['TransactionID'] ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $transaction['ProductCode']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $transaction['ProductName']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $transaction['WarehouseName']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $transaction['TransactionType']
+                ) ?>
+            </td>
+
+            <td>
+                <?= (int) $transaction['Quantity'] ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $transaction['ReferenceType']
+                ) ?>
+            </td>
+
+            <td>
+                <?= (int) $transaction['ReferenceID'] ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $transaction['TransactionDate']
+                ) ?>
+            </td>
+
+            <td>
+                <?= (int) $transaction['CreatedBy'] ?>
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>
+
+<?php else: ?>
+
+    <p>
+        <strong>
+            No transactions found for the selected filters.
+        </strong>
+    </p>
+
+<?php endif; ?>
+
+
+<?php
+/*
+ * Compact Pagination
+ */
+
+if ($totalPages > 1):
+
+    $buildPageUrl = function ($targetPage) {
+
+        return $this->url(
+            'inventory-report-transactions',
+            [],
+            [
+                'query' => [
+                    'page'            => $targetPage,
+                    'perPage'         => $perPage,
+                    'WarehouseID'     => $warehouseId,
+                    'TransactionType' => $transactionType,
+                    'FromDate'        => $fromDate,
+                    'ToDate'          => $toDate
+                ]
+            ]
+        );
+    };
+
+    $startPage =
+        max(
+            1,
+            $page - 2
+        );
+
+    $endPage =
+        min(
+            $totalPages,
+            $page + 2
+        );
+?>
+
+<hr>
+
+<div style="margin-top:15px;">
+
+    <?php if ($page > 1): ?>
+
+        <a href="<?= $buildPageUrl(1) ?>">
+            First
+        </a>
+
+        &nbsp;
+
+        <a href="<?= $buildPageUrl($page - 1) ?>">
+            Prev
+        </a>
+
+        &nbsp;
+
+    <?php endif; ?>
+
+
+    <?php if ($startPage > 1): ?>
+
+        <a href="<?= $buildPageUrl(1) ?>">
+            1
+        </a>
+
+        &nbsp;
+
+        <?php if ($startPage > 2): ?>
+
+            ...
+            &nbsp;
+
+        <?php endif; ?>
+
+    <?php endif; ?>
+
+
+    <?php for (
+        $paginationPage = $startPage;
+        $paginationPage <= $endPage;
+        $paginationPage++
+    ): ?>
+
+        <?php if ($paginationPage == $page): ?>
+
+            <strong>
+                [<?= $paginationPage ?>]
+            </strong>
+
+        <?php else: ?>
+
+            <a href="<?= $buildPageUrl(
+                $paginationPage
+            ) ?>">
+                <?= $paginationPage ?>
+            </a>
+
+        <?php endif; ?>
+
+        &nbsp;
+
+    <?php endfor; ?>
+
+
+    <?php if ($endPage < $totalPages): ?>
+
+        <?php if ($endPage < $totalPages - 1): ?>
+
+            ...
+            &nbsp;
+
+        <?php endif; ?>
+
+        <a href="<?= $buildPageUrl($totalPages) ?>">
+            <?= $totalPages ?>
+        </a>
+
+        &nbsp;
+
+    <?php endif; ?>
+
+
+    <?php if ($page < $totalPages): ?>
+
+        <a href="<?= $buildPageUrl($page + 1) ?>">
+            Next
+        </a>
+
+        &nbsp;
+
+        <a href="<?= $buildPageUrl($totalPages) ?>">
+            Last
+        </a>
+
+    <?php endif; ?>
+
+</div>
+
+<p>
+    Page <?= (int) $page ?>
+    of <?= (int) $totalPages ?>
+</p>
+
+<?php endif; ?>

@@ -1,0 +1,169 @@
+<h2>Stock Adjustment</h2>
+
+<p>
+    <a href="<?= $this->url('dashboard') ?>">
+        Back to Dashboard
+    </a>
+</p>
+
+<form
+    method="post"
+    action="<?= $this->url('stock-adjustment/adjust') ?>"
+>
+
+    <table>
+
+        <tr>
+            <td>
+                <label>Product</label>
+            </td>
+
+            <td>
+                <select
+                    name="ProductID"
+                    required
+                >
+                    <option value="">
+                        Select Product
+                    </option>
+
+                    <?php foreach ($products as $product): ?>
+
+                        <option
+                            value="<?= (int) $product['ProductID'] ?>"
+                        >
+                            <?= htmlspecialchars(
+                                $product['ProductCode']
+                            ) ?>
+                            -
+                            <?= htmlspecialchars(
+                                $product['ProductName']
+                            ) ?>
+                            (Stock:
+                            <?= (int) $product['Quantity'] ?>)
+                        </option>
+
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>Warehouse</label>
+            </td>
+
+            <td>
+                <select
+                    name="WarehouseID"
+                    required
+                >
+                    <option value="">
+                        Select Warehouse
+                    </option>
+
+                    <?php foreach ($warehouses as $warehouse): ?>
+
+                        <option
+                            value="<?= (int) $warehouse['WarehouseID'] ?>"
+                        >
+                            <?= htmlspecialchars(
+                                $warehouse['WarehouseCode']
+                            ) ?>
+                            -
+                            <?= htmlspecialchars(
+                                $warehouse['WarehouseName']
+                            ) ?>
+                        </option>
+
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>Adjustment Type</label>
+            </td>
+
+            <td>
+                <select
+                    name="AdjustmentType"
+                    required
+                >
+                    <option value="">
+                        Select Type
+                    </option>
+
+                    <option value="IN">
+                        Stock Increase
+                    </option>
+
+                    <option value="OUT">
+                        Stock Decrease
+                    </option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>Quantity</label>
+            </td>
+
+            <td>
+                <input
+                    type="number"
+                    name="Quantity"
+                    min="1"
+                    required
+                >
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>Reason</label>
+            </td>
+
+            <td>
+                <select
+                    name="Reason"
+                    required
+                >
+                    <option value="">
+                        Select Reason
+                    </option>
+
+                    <option value="Damaged">
+                        Damaged
+                    </option>
+
+                    <option value="Missing">
+                        Missing
+                    </option>
+
+                    <option value="Correction">
+                        Inventory Correction
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+
+            <td>
+                <button type="submit">
+                    Adjust Stock
+                </button>
+            </td>
+        </tr>
+
+    </table>
+
+</form>

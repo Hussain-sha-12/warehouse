@@ -1,0 +1,30 @@
+<h1>Edit Category</h1>
+
+<form method="post" action="/category/edit/<?= $id; ?>">
+
+    <label>Category Name:</label>
+    <br>
+    <input
+        type="text"
+        name="CategoryName"
+        value="<?= htmlspecialchars($category['CategoryName']); ?>"
+        required
+    >
+
+    <br><br>
+
+    <label>Description:</label>
+    <br>
+    <textarea
+        name="Description"
+        rows="5"
+        cols="40"
+    ><?= htmlspecialchars($category['Description']); ?></textarea>
+
+    <br><br>
+
+    <button type="submit">Update Category</button>
+
+    <a href="/category">Cancel</a>
+
+</form>

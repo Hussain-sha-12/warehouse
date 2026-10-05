@@ -1,0 +1,114 @@
+<h2>Sales Orders</h2>
+
+<p>
+    <a href="<?= $this->url('sales/create') ?>">
+        Create New Sale
+    </a>
+</p>
+
+<table border="1" cellpadding="10" cellspacing="0">
+
+    <tr>
+        <th>ID</th>
+        <th>Sales Order Number</th>
+        <th>Customer</th>
+        <th>Order Date</th>
+        <th>Status</th>
+        <th>Dispatch Status</th>
+        <th>Total Amount</th>
+        <th>Action</th>
+    </tr>
+
+    <?php foreach ($salesOrders as $sale): ?>
+
+        <tr>
+
+            <td>
+                <?= (int) $sale['SalesOrderID'] ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $sale['SalesOrderNumber']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $sale['CustomerName']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $sale['OrderDate']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $sale['Status']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $sale['DispatchStatus']
+                ) ?>
+            </td>
+
+            <td>
+                ₹<?= number_format(
+                    (float) $sale['TotalAmount'],
+                    2
+                ) ?>
+            </td>
+
+            <td>
+
+                <a href="<?= $this->url(
+                    'sales-view',
+                    [
+                        'id' => $sale['SalesOrderID']
+                    ]
+                ) ?>">
+                    View
+                </a>
+
+                <?php if ($sale['DispatchStatus'] === 'Pending'): ?>
+
+                    |
+                    <a href="<?= $this->url(
+                        'sales-dispatch',
+                        [
+                            'id' => $sale['SalesOrderID']
+                        ]
+                    ) ?>">
+                        Dispatch
+                    </a>
+
+                <?php elseif ($sale['DispatchStatus'] === 'Dispatched'): ?>
+
+                    |
+                    <a href="<?= $this->url(
+                        'sales-delivered',
+                        [
+                            'id' => $sale['SalesOrderID']
+                        ]
+                    ) ?>">
+                        Mark Delivered
+                    </a>
+
+                <?php elseif ($sale['DispatchStatus'] === 'Delivered'): ?>
+
+                    | Delivered
+
+                <?php endif; ?>
+
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>

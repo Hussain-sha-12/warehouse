@@ -1,0 +1,23 @@
+<h2>Warehouse Login</h2>
+
+<?php if ($error): ?>
+    <p style="color:red;">
+        <?= $this->escapeHtml($error) ?>
+    </p>
+<?php endif; ?>
+
+<form method="post">
+
+    <p>
+        <label>Username</label><br>
+        <input type="text" name="Username" required>
+    </p>
+
+    <p>
+        <label>Password</label><br>
+        <input type="password" name="Password" required>
+    </p>
+
+    <button type="submit">Login</button>
+
+</form>

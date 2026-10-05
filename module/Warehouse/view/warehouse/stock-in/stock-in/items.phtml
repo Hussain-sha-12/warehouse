@@ -1,0 +1,58 @@
+<h2>Purchase Order Items</h2>
+
+<table border="1" cellpadding="8" cellspacing="0">
+
+    <tr>
+        <th>Item ID</th>
+        <th>Product ID</th>
+        <th>Quantity</th>
+        <th>Unit Cost</th>
+        <th>Total Amount</th>
+        <th>Action</th>
+    </tr>
+
+    <?php foreach ($items as $item): ?>
+
+        <tr>
+
+            <td>
+                <?= $this->escapeHtml($item['PurchaseOrderItemID']) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($item['ProductID']) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($item['Quantity']) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($item['UnitCost']) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($item['TotalAmount']) ?>
+            </td>
+
+            <td>
+
+                <a href="<?= $this->url('stock-in/receive', [
+                    'id' => $item['PurchaseOrderItemID']
+                ]) ?>">
+                    Receive Stock
+                </a>
+
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>
+
+<br>
+
+<a href="<?= $this->url('stock-in') ?>">
+    Back
+</a>

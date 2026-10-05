@@ -1,0 +1,80 @@
+<h2>Purchase Order Status</h2>
+
+<p>
+    <a href="<?= $this->url('purchase') ?>">
+        Back to Purchases
+    </a>
+</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+
+    <tr>
+        <th>PO Number</th>
+        <th>Supplier</th>
+        <th>Warehouse</th>
+        <th>Order Date</th>
+        <th>Status</th>
+        <th>Total Amount</th>
+        <th>Action</th>
+    </tr>
+
+    <?php foreach ($purchaseOrders as $purchase): ?>
+
+        <tr>
+
+            <td>
+                <?= htmlspecialchars(
+                    $purchase['PurchaseOrderNumber']
+                ) ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $purchase['SupplierName']
+                ) ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $purchase['WarehouseName']
+                ) ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $purchase['OrderDate']
+                ) ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $purchase['Status']
+                ) ?>
+            </td>
+
+            <td>
+                <?= number_format(
+                    (float) $purchase['TotalAmount'],
+                    2
+                ) ?>
+            </td>
+
+            <td>
+
+                <a href="<?= $this->url(
+                    'purchase-status/update',
+                    [
+                        'id' =>
+                            $purchase['PurchaseOrderID']
+                    ]
+                ) ?>">
+                    Update Status
+                </a>
+
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>

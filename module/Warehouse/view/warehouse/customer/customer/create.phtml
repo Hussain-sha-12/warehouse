@@ -1,0 +1,54 @@
+<h2>Add Customer</h2>
+
+<?php if ($error): ?>
+    <p style="color:red;">
+        <?= $this->escapeHtml($error) ?>
+    </p>
+<?php endif; ?>
+
+<form method="post">
+
+    <p>
+        <label>Customer Code</label><br>
+        <input type="text"
+               name="CustomerCode"
+               required>
+    </p>
+
+    <p>
+        <label>Customer Name</label><br>
+        <input type="text"
+               name="CustomerName"
+               required>
+    </p>
+
+    <p>
+        <label>Phone</label><br>
+        <input type="text"
+               name="Phone">
+    </p>
+
+    <p>
+        <label>Email</label><br>
+        <input type="email"
+               name="Email">
+    </p>
+
+    <p>
+        <label>Address</label><br>
+        <textarea name="Address"
+                  rows="4"
+                  cols="40"></textarea>
+    </p>
+
+    <button type="submit">
+        Save Customer
+    </button>
+
+</form>
+
+<p>
+    <a href="<?= $this->url('customers') ?>">
+        Back to Customers
+    </a>
+</p>

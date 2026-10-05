@@ -1,0 +1,153 @@
+<h2>Low Stock / Reorder Management</h2>
+
+<p>
+    <a href="/warehouse/public/dashboard">
+        Back to Dashboard
+    </a>
+</p>
+
+<table border="1" cellpadding="10" cellspacing="0">
+
+    <tr>
+        <th>All Stock</th>
+        <th>Available</th>
+        <th>Low Stock</th>
+        <th>Out of Stock</th>
+    </tr>
+
+    <tr>
+        <td>
+            <?= (int) ($counts['AllStock'] ?? 0); ?>
+        </td>
+
+        <td>
+            <?= (int) ($counts['AvailableStock'] ?? 0); ?>
+        </td>
+
+        <td>
+            <?= (int) ($counts['LowStock'] ?? 0); ?>
+        </td>
+
+        <td>
+            <?= (int) ($counts['OutOfStock'] ?? 0); ?>
+        </td>
+    </tr>
+
+</table>
+
+<br>
+
+<form method="get"
+      action="/warehouse/public/reorder-management">
+
+    <label>
+        Stock Status:
+    </label>
+
+    <select name="status">
+
+        <option value=""
+            <?= $selectedStatus === ''
+                ? 'selected'
+                : ''; ?>>
+            All
+        </option>
+
+        <option value="Out of Stock"
+            <?= $selectedStatus === 'Out of Stock'
+                ? 'selected'
+                : ''; ?>>
+            Out of Stock
+        </option>
+
+        <option value="Low Stock"
+            <?= $selectedStatus === 'Low Stock'
+                ? 'selected'
+                : ''; ?>>
+            Low Stock
+        </option>
+
+        <option value="Available"
+            <?= $selectedStatus === 'Available'
+                ? 'selected'
+                : ''; ?>>
+            Available
+        </option>
+
+    </select>
+
+    <button type="submit">
+        Filter
+    </button>
+
+</form>
+
+<br>
+
+<table border="1" cellpadding="8" cellspacing="0">
+
+    <tr>
+        <th>Product</th>
+        <th>Warehouse</th>
+        <th>Current Stock</th>
+        <th>Reorder Level</th>
+        <th>Status</th>
+        <th>Suggested Reorder</th>
+        <th>Last Updated</th>
+    </tr>
+
+    <?php foreach ($items as $item): ?>
+
+        <tr>
+
+            <td>
+                <?= htmlspecialchars(
+                    $item['ProductCode']
+                ); ?>
+                -
+                <?= htmlspecialchars(
+                    $item['ProductName']
+                ); ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $item['WarehouseCode']
+                ); ?>
+                -
+                <?= htmlspecialchars(
+                    $item['WarehouseName']
+                ); ?>
+            </td>
+
+            <td>
+                <?= (int) $item['Quantity']; ?>
+            </td>
+
+            <td>
+                <?= (int) $item['ReorderLevel']; ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $item['StockStatus']
+                ); ?>
+            </td>
+
+            <td>
+                <?= (int) $item[
+                    'SuggestedReorderQuantity'
+                ]; ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $item['LastUpdated']
+                ); ?>
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>

@@ -1,0 +1,71 @@
+<h2>Sales Report</h2>
+
+<p>
+    <a href="<?= $this->url('reports') ?>">
+        ← Reports
+    </a>
+</p>
+
+<?php if (count($sales) === 0): ?>
+
+    <p>No sales orders found.</p>
+
+<?php else: ?>
+
+<table border="1" cellpadding="10" cellspacing="0">
+
+    <tr>
+        <th>Sales ID</th>
+        <th>Sales Order Number</th>
+        <th>Customer</th>
+        <th>Order Date</th>
+        <th>Status</th>
+        <th>Total Amount</th>
+    </tr>
+
+    <?php foreach ($sales as $sale): ?>
+
+        <tr>
+
+            <td>
+                <?= (int) $sale['SalesOrderID'] ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $sale['SalesOrderNumber']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $sale['CustomerName']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $sale['OrderDate']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $sale['Status']
+                ) ?>
+            </td>
+
+            <td>
+                ₹<?= number_format(
+                    (float) $sale['TotalAmount'],
+                    2
+                ) ?>
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>
+
+<?php endif; ?>

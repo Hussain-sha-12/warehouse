@@ -1,0 +1,82 @@
+<h2>Inventory Report</h2>
+
+<p>
+    <a href="<?= $this->url('dashboard') ?>">Dashboard</a> |
+    <a href="<?= $this->url('inventory-report-transactions') ?>">
+        Stock Transactions
+    </a> |
+    <a href="<?= $this->url('inventory-report-movement') ?>">
+        Stock Movement
+    </a>
+</p>
+
+<hr>
+
+<h3>Inventory Summary</h3>
+
+<table border="1" cellpadding="10" cellspacing="0">
+    <tr>
+        <th>Total Products</th>
+        <th>Total Stock</th>
+        <th>Low Stock</th>
+        <th>Out of Stock</th>
+    </tr>
+
+    <tr>
+        <td><?= (int) $summary['TotalProducts'] ?></td>
+
+        <td><?= (int) $summary['TotalStock'] ?></td>
+
+        <td><?= (int) $summary['LowStock'] ?></td>
+
+        <td><?= (int) $summary['OutOfStock'] ?></td>
+    </tr>
+</table>
+
+<br>
+
+<h3>Current Stock</h3>
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+        <th>Product Code</th>
+        <th>Product Name</th>
+        <th>Current Stock</th>
+        <th>Reorder Level</th>
+        <th>Status</th>
+        <th>Last Updated</th>
+    </tr>
+
+    <?php foreach ($stock as $item): ?>
+
+        <tr>
+
+            <td>
+                <?= $this->escapeHtml($item['ProductCode']) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($item['ProductName']) ?>
+            </td>
+
+            <td>
+                <?= (int) $item['Quantity'] ?>
+            </td>
+
+            <td>
+                <?= (int) $item['ReorderLevel'] ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($item['StockStatus']) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($item['LastUpdated']) ?>
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>

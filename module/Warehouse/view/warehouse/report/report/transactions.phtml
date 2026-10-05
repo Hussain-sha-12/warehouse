@@ -1,0 +1,147 @@
+<h2>Stock Transactions Report</h2>
+
+<p>
+    <a href="<?= $this->url('reports') ?>">
+        ← Reports
+    </a>
+</p>
+
+<form method="post">
+
+    <label>Transaction Type:</label>
+
+    <select name="TransactionType">
+
+        <option value="">All</option>
+
+        <option value="IN"
+            <?= $transactionType === 'IN' ? 'selected' : '' ?>>
+            IN
+        </option>
+
+        <option value="OUT"
+            <?= $transactionType === 'OUT' ? 'selected' : '' ?>>
+            OUT
+        </option>
+
+    </select>
+
+    &nbsp;
+
+    <label>From Date:</label>
+
+    <input
+        type="date"
+        name="FromDate"
+        value="<?= $this->escapeHtmlAttr($fromDate) ?>"
+    >
+
+    &nbsp;
+
+    <label>To Date:</label>
+
+    <input
+        type="date"
+        name="ToDate"
+        value="<?= $this->escapeHtmlAttr($toDate) ?>"
+    >
+
+    &nbsp;
+
+    <button type="submit">
+        Filter
+    </button>
+
+    <a href="<?= $this->url('report-transactions') ?>">
+        Clear
+    </a>
+
+</form>
+
+<hr>
+
+<?php if (count($transactions) === 0): ?>
+
+    <p>No stock transactions found.</p>
+
+<?php else: ?>
+
+<table border="1" cellpadding="10" cellspacing="0">
+
+    <tr>
+        <th>Transaction ID</th>
+        <th>Product Code</th>
+        <th>Product</th>
+        <th>Warehouse Code</th>
+        <th>Warehouse</th>
+        <th>Type</th>
+        <th>Quantity</th>
+        <th>Reference</th>
+        <th>Date</th>
+    </tr>
+
+    <?php foreach ($transactions as $transaction): ?>
+
+        <tr>
+
+            <td>
+                <?= (int) $transaction['TransactionID'] ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $transaction['ProductCode']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $transaction['ProductName']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $transaction['WarehouseCode']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $transaction['WarehouseName']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $transaction['TransactionType']
+                ) ?>
+            </td>
+
+            <td>
+                <?= (int) $transaction['Quantity'] ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $transaction['ReferenceType']
+                ) ?>
+
+                -
+
+                <?= (int) $transaction['ReferenceID'] ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $transaction['TransactionDate']
+                ) ?>
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>
+
+<?php endif; ?>

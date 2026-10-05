@@ -1,0 +1,39 @@
+<h1>Category Management</h1>
+
+<a href="/category/add">Add Category</a>
+
+<br><br>
+
+<table border="1" cellpadding="10" cellspacing="0">
+    <tr>
+        <th>ID</th>
+        <th>Category Name</th>
+        <th>Description</th>
+        <th>Active</th>
+        <th>Action</th>
+    </tr>
+
+    <?php foreach ($categories as $category): ?>
+        <tr>
+            <td><?= $category['CategoryID']; ?></td>
+            <td><?= $category['CategoryName']; ?></td>
+            <td><?= $category['Description']; ?></td>
+            <td><?= $category['IsActive'] ? 'Yes' : 'No'; ?></td>
+
+            <td>
+                <a href="/category/edit/<?= $category['CategoryID']; ?>">
+                    Edit
+                </a>
+
+                &nbsp; | &nbsp;
+
+                <a
+                    href="/category/delete/<?= $category['CategoryID']; ?>"
+                    onclick="return confirm('Are you sure you want to deactivate this category?');"
+                >
+                    Delete
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>

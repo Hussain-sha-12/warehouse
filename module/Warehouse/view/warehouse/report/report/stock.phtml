@@ -1,0 +1,55 @@
+<h2>Stock Summary Report</h2>
+
+<p>
+    <a href="<?= $this->url('reports') ?>">
+        ← Reports
+    </a>
+</p>
+
+<?php if (count($stock) === 0): ?>
+
+    <p>No stock records found.</p>
+
+<?php else: ?>
+
+<table border="1" cellpadding="10" cellspacing="0">
+
+    <tr>
+        <th>Product Code</th>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Reorder Level</th>
+        <th>Status</th>
+    </tr>
+
+    <?php foreach ($stock as $item): ?>
+
+        <tr>
+
+            <td>
+                <?= $this->escapeHtml($item['ProductCode']) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($item['ProductName']) ?>
+            </td>
+
+            <td>
+                <?= (int) $item['Quantity'] ?>
+            </td>
+
+            <td>
+                <?= (int) $item['ReorderLevel'] ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($item['StockStatus']) ?>
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>
+
+<?php endif; ?>

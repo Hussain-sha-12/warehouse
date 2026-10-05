@@ -1,0 +1,68 @@
+<h2>Create User</h2>
+
+<?php if ($error): ?>
+
+    <p style="color:red;">
+        <?= $this->escapeHtml($error) ?>
+    </p>
+
+<?php endif; ?>
+
+<form method="post">
+
+    <p>
+        <label>Username</label><br>
+
+        <input
+            type="text"
+            name="Username"
+            required
+        >
+    </p>
+
+    <p>
+        <label>Password</label><br>
+
+        <input
+            type="password"
+            name="Password"
+            minlength="6"
+            required
+        >
+    </p>
+
+    <p>
+        <label>Role</label><br>
+
+        <select name="RoleID" required>
+
+            <option value="">
+                Select Role
+            </option>
+
+            <option value="1">
+                Admin
+            </option>
+
+            <option value="2">
+                Manager
+            </option>
+
+            <option value="3">
+                Employee
+            </option>
+
+        </select>
+    </p>
+
+    <button type="submit">
+        Create User
+    </button>
+
+</form>
+
+<p>
+    <a href="<?= $this->url('user-management') ?>">
+        ← Back
+    </a>
+</p>

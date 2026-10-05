@@ -1,0 +1,51 @@
+<h2>Purchase Order Items</h2>
+
+<a href="<?= $this->url('purchase-item/add') ?>">
+    Add Purchase Item
+</a>
+
+<br><br>
+
+<table border="1" cellpadding="8" cellspacing="0">
+
+    <tr>
+        <th>ID</th>
+        <th>Purchase Order ID</th>
+        <th>Product ID</th>
+        <th>Quantity</th>
+        <th>Unit Cost</th>
+        <th>Total Amount</th>
+        <th>Action</th>
+    </tr>
+
+    <?php foreach ($items as $item): ?>
+
+        <tr>
+            <td><?= $item['PurchaseOrderItemID'] ?></td>
+            <td><?= $item['PurchaseOrderID'] ?></td>
+            <td><?= $item['ProductID'] ?></td>
+            <td><?= $item['Quantity'] ?></td>
+            <td><?= $item['UnitCost'] ?></td>
+            <td><?= $item['TotalAmount'] ?></td>
+
+            <td>
+                <a href="<?= $this->url('purchase-item/edit', [
+                    'id' => $item['PurchaseOrderItemID']
+                ]) ?>">
+                    Edit
+                </a>
+
+                |
+
+                <a href="<?= $this->url('purchase-item/delete', [
+                    'id' => $item['PurchaseOrderItemID']
+                ]) ?>"
+                   onclick="return confirm('Delete this item?')">
+                    Delete
+                </a>
+            </td>
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>

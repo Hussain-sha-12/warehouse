@@ -1,0 +1,47 @@
+<h1>Edit Product</h1>
+
+<?php
+$form->setAttribute(
+    'action',
+    '/product/edit/' . $id
+);
+
+$form->prepare();
+?>
+
+<?= $this->form()->openTag($form); ?>
+
+<p>
+    <?= $this->formLabel($form->get('ProductCode')); ?><br>
+    <?= $this->formInput($form->get('ProductCode')); ?>
+</p>
+
+<p>
+    <?= $this->formLabel($form->get('ProductName')); ?><br>
+    <?= $this->formInput($form->get('ProductName')); ?>
+</p>
+
+<p>
+    <?= $this->formLabel($form->get('CategoryID')); ?><br>
+    <?= $this->formInput($form->get('CategoryID')); ?>
+</p>
+
+<p>
+    <?= $this->formLabel($form->get('UnitPrice')); ?><br>
+    <?= $this->formInput($form->get('UnitPrice')); ?>
+</p>
+
+<p>
+    <?= $this->formLabel($form->get('ReorderLevel')); ?><br>
+    <?= $this->formInput($form->get('ReorderLevel')); ?>
+</p>
+
+<p>
+    <?= $this->formSubmit($form->get('submit')); ?>
+</p>
+
+<?= $this->form()->closeTag(); ?>
+
+<br>
+
+<a href="/product">Back to Products</a>

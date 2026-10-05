@@ -1,0 +1,15 @@
+﻿/vendor/
+/data/cache/
+/data/logs/
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+*.log
+*.tmp
+*.cache
+Thumbs.db
+.DS_Store
+
+*.zip

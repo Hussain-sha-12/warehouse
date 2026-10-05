@@ -1,0 +1,84 @@
+<h2>Edit Supplier</h2>
+
+<?php if ($error): ?>
+    <p style="color:red;">
+        <?= $this->escapeHtml($error) ?>
+    </p>
+<?php endif; ?>
+
+<form method="post">
+
+    <p>
+        <label>Supplier Code</label><br>
+        <input
+            type="text"
+            name="SupplierCode"
+            value="<?= $this->escapeHtml($supplier['SupplierCode']) ?>"
+            required
+        >
+    </p>
+
+    <p>
+        <label>Supplier Name</label><br>
+        <input
+            type="text"
+            name="SupplierName"
+            value="<?= $this->escapeHtml($supplier['SupplierName']) ?>"
+            required
+        >
+    </p>
+
+    <p>
+        <label>Phone</label><br>
+        <input
+            type="text"
+            name="Phone"
+            value="<?= $this->escapeHtml($supplier['Phone']) ?>"
+        >
+    </p>
+
+    <p>
+        <label>Email</label><br>
+        <input
+            type="email"
+            name="Email"
+            value="<?= $this->escapeHtml($supplier['Email']) ?>"
+        >
+    </p>
+
+    <p>
+        <label>Address</label><br>
+        <textarea name="Address"><?= $this->escapeHtml($supplier['Address']) ?></textarea>
+    </p>
+
+    <p>
+        <label>Status</label><br>
+
+        <select name="IsActive">
+
+            <option
+                value="1"
+                <?= $supplier['IsActive'] ? 'selected' : '' ?>
+            >
+                Active
+            </option>
+
+            <option
+                value="0"
+                <?= !$supplier['IsActive'] ? 'selected' : '' ?>
+            >
+                Inactive
+            </option>
+
+        </select>
+    </p>
+
+    <button type="submit">Update Supplier</button>
+
+</form>
+
+<p>
+    <a href="<?= $this->url('suppliers') ?>">
+        ← Back
+    </a>
+</p>

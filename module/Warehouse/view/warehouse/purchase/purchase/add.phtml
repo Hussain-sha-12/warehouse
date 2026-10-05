@@ -1,0 +1,53 @@
+<h2>Add Purchase Order</h2>
+
+<form method="post">
+
+    <p>
+        <label>Purchase Order Number</label><br>
+        <input type="text" name="PurchaseOrderNumber" required>
+    </p>
+
+    <p>
+        <label>Supplier ID</label><br>
+        <input type="number" name="SupplierID" required>
+    </p>
+
+    <p>
+        <label>Warehouse ID</label><br>
+        <input type="number" name="WarehouseID" required>
+    </p>
+
+    <p>
+        <label>Order Date</label><br>
+        <input type="datetime-local" name="OrderDate" required>
+    </p>
+
+    <p>
+        <label>Status</label><br>
+        <select name="Status">
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Received">Received</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+    </p>
+
+    <p>
+        <label>Total Amount</label><br>
+        <input type="number" name="TotalAmount" step="0.01" value="0" required>
+    </p>
+
+    <p>
+        <label>Created By</label><br>
+        <input type="number" name="CreatedBy">
+    </p>
+
+    <button type="submit">Save Purchase Order</button>
+
+</form>
+
+<br>
+
+<a href="<?= $this->url('purchase') ?>">
+    Back to Purchase Orders
+</a>

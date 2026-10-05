@@ -1,0 +1,44 @@
+<h2>Inventory</h2>
+
+<a href="<?= $this->url('inventory/add') ?>">
+    Add Inventory
+</a>
+
+<br><br>
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+        <th>ID</th>
+        <th>Product ID</th>
+        <th>Quantity</th>
+        <th>Reorder Level</th>
+        <th>Last Updated</th>
+        <th>Action</th>
+    </tr>
+
+    <?php foreach ($inventories as $inventory): ?>
+        <tr>
+            <td><?= $this->escapeHtml($inventory['InventoryID']) ?></td>
+            <td><?= $this->escapeHtml($inventory['ProductID']) ?></td>
+            <td><?= $this->escapeHtml($inventory['Quantity']) ?></td>
+            <td><?= $this->escapeHtml($inventory['ReorderLevel']) ?></td>
+            <td><?= $this->escapeHtml($inventory['LastUpdated']) ?></td>
+            <td>
+                <a href="<?= $this->url('inventory/edit', [
+                    'id' => $inventory['InventoryID']
+                ]) ?>">
+                    Edit
+                </a>
+                |
+                <a
+                    href="<?= $this->url('inventory/delete', [
+                        'id' => $inventory['InventoryID']
+                    ]) ?>"
+                    onclick="return confirm('Delete this inventory record?')"
+                >
+                    Delete
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>

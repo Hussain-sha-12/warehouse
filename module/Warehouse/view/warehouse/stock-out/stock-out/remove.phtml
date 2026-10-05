@@ -1,0 +1,60 @@
+<h2>Stock OUT</h2>
+
+<?php if ($error): ?>
+
+    <p style="color:red;">
+        <?= $this->escapeHtml($error) ?>
+    </p>
+
+<?php endif; ?>
+
+<p>
+    <strong>Product Code:</strong>
+    <?= $this->escapeHtml($product['ProductCode']) ?>
+</p>
+
+<p>
+    <strong>Product Name:</strong>
+    <?= $this->escapeHtml($product['ProductName']) ?>
+</p>
+
+<p>
+    <strong>Available Stock:</strong>
+    <?= $this->escapeHtml($availableQuantity) ?>
+</p>
+
+<?php if ($availableQuantity > 0): ?>
+
+<form method="post">
+
+    <p>
+        <label>Quantity to Remove</label><br>
+
+        <input
+            type="number"
+            name="Quantity"
+            min="1"
+            max="<?= $this->escapeHtml($availableQuantity) ?>"
+            required
+        >
+    </p>
+
+    <button type="submit">
+        Remove Stock
+    </button>
+
+</form>
+
+<?php else: ?>
+
+    <p style="color:red;">
+        No stock available for this product.
+    </p>
+
+<?php endif; ?>
+
+<br>
+
+<a href="<?= $this->url('stock-out') ?>">
+    Back
+</a>

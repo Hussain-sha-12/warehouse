@@ -1,0 +1,394 @@
+﻿<?php
+$title = 'Reorder Request Management';
+
+$statusOptions = [
+    '' => 'All',
+    'Requested' => 'Requested',
+    'Approved' => 'Approved',
+    'Rejected' => 'Rejected',
+    'Purchase Ordered' => 'Purchase Ordered',
+    'Received' => 'Received',
+    'Completed' => 'Completed'
+];
+?>
+
+<h2><?= $this->escapeHtml($title) ?></h2>
+
+<p>
+    <a href="<?= $this->url('dashboard') ?>">Back to Dashboard</a>
+</p>
+
+<hr>
+
+<h3>Create Reorder Request</h3>
+
+<form method="post"
+      action="<?= $this->url('reorder-request/create') ?>">
+
+    <p>
+        <label><strong>Product:</strong></label><br>
+
+        <select name="ProductID" required>
+            <option value="">-- Select Product --</option>
+
+            <?php foreach ($products as $product): ?>
+                <option value="<?= (int) $product['ProductID'] ?>">
+                    <?= $this->escapeHtml(
+                        $product['ProductCode'] . ' - ' .
+                        $product['ProductName']
+                    ) ?>
+                    (Stock: <?= (int) $product['Quantity'] ?>)
+                </option>
+            <?php endforeach; ?>
+
+        </select>
+    </p>
+
+    <p>
+        <label><strong>Warehouse:</strong></label><br>
+
+        <select name="WarehouseID" required>
+            <option value="">-- Select Warehouse --</option>
+
+            <?php foreach ($warehouses as $warehouse): ?>
+                <option value="<?= (int) $warehouse['WarehouseID'] ?>">
+                    <?= $this->escapeHtml(
+                        $warehouse['WarehouseCode'] . ' - ' .
+                        $warehouse['WarehouseName']
+                    ) ?>
+                </option>
+            <?php endforeach; ?>
+
+        </select>
+    </p>
+
+    <p>
+        <label><strong>Requested Quantity:</strong></label><br>
+
+        <input type="number"
+               name="RequestedQuantity"
+               min="1"
+               required>
+    </p>
+
+    <p>
+        <label><strong>Notes:</strong></label><br>
+
+        <input type="text"
+               name="Notes"
+               maxlength="500"
+               placeholder="Enter reason / notes">
+    </p>
+
+    <p>
+        <button type="submit">
+            Create Reorder Request
+        </button>
+    </p>
+
+</form>
+
+<hr>
+
+<hr>
+
+<form method="get"
+      action="<?= $this->url('reorder-request') ?>">
+
+    <label>
+        <strong>Filter Status:</strong>
+    </label>
+
+    <select name="status"
+            onchange="this.form.submit()">
+
+        <?php foreach ($statusOptions as $value => $label): ?>
+
+            <option value="<?= $this->escapeHtmlAttr($value) ?>"
+                <?= $status === $value ? 'selected' : '' ?>>
+
+                <?= $this->escapeHtml($label) ?>
+
+            </option>
+
+        <?php endforeach; ?>
+
+    </select>
+
+</form>
+
+<br>
+
+<?php if (empty($requests)): ?>
+
+    <p><strong>No reorder requests found.</strong></p>
+
+<?php else: ?>
+
+<table border="1"
+       cellpadding="8"
+       cellspacing="0"
+       width="100%">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Product</th>
+            <th>Warehouse</th>
+            <th>Requested</th>
+           <th>Received</th>
+           <th>Remaining</th>
+            <th>Requested By</th>
+            <th>Request Date</th>
+            <th>Status</th>
+            <th>Notes</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    <?php foreach ($requests as $request): ?>
+
+        <tr>
+
+            <td>
+                <?= (int) $request['ReorderRequestID'] ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $request['ProductCode']
+                ) ?>
+                -
+                <?= $this->escapeHtml(
+                    $request['ProductName']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $request['WarehouseCode']
+                ) ?>
+                -
+                <?= $this->escapeHtml(
+                    $request['WarehouseName']
+                ) ?>
+            </td>
+
+            <td>
+                <?= (int) $request['RequestedQuantity'] ?>
+            </td>
+
+           <td>
+               <?= (int) ($request['ReceivedQuantity'] ?? 0) ?>
+           </td>
+
+           <td>
+               <?= (int) ($request['RemainingQuantity'] ?? 0) ?>
+           </td>
+
+           <td>
+                <?= $this->escapeHtml(
+                    $request['RequestedByName'] ?? 'System'
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $request['RequestDate']
+                ) ?>
+            </td>
+
+            <td>
+                <strong>
+                    <?= $this->escapeHtml(
+                        $request['Status']
+                    ) ?>
+                </strong>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $request['Notes'] ?? ''
+                ) ?>
+            </td>
+
+            <td>
+
+                <?php
+                $currentStatus = $request['Status'];
+                ?>
+
+                <?php if ($currentStatus === 'Requested'): ?>
+
+                    <form method="post"
+                          action="<?= $this->url(
+                              'reorder-request/status'
+                          ) ?>"
+                          style="display:inline;">
+
+                        <input type="hidden"
+                               name="ReorderRequestID"
+                               value="<?= (int)
+                                   $request['ReorderRequestID'] ?>">
+
+                        <input type="hidden"
+                               name="Status"
+                               value="Approved">
+
+                        <button type="submit">
+                            Approve
+                        </button>
+
+                    </form>
+
+                    <form method="post"
+                          action="<?= $this->url(
+                              'reorder-request/status'
+                          ) ?>"
+                          style="display:inline;">
+
+                        <input type="hidden"
+                               name="ReorderRequestID"
+                               value="<?= (int)
+                                   $request['ReorderRequestID'] ?>">
+
+                        <input type="hidden"
+                               name="Status"
+                               value="Rejected">
+
+                        <button type="submit">
+                            Reject
+                        </button>
+
+                    </form>
+
+                <?php elseif ($currentStatus === 'Approved'): ?>
+
+                    <form method="post"
+                          action="<?= $this->url(
+                              'reorder-request/status'
+                          ) ?>">
+
+                        <input type="hidden"
+                               name="ReorderRequestID"
+                               value="<?= (int)
+                                   $request['ReorderRequestID'] ?>">
+
+                        <input type="hidden"
+                               name="Status"
+                               value="Purchase Ordered">
+
+                        <button type="submit">
+                            Purchase Ordered
+                        </button>
+
+                    </form>
+
+\<?php elseif (
+                    $currentStatus === 'Purchase Ordered'
+                ): ?>
+
+                    <form method="post"
+                          action="<?= $this->url(
+                              'reorder-request/status'
+                          ) ?>">
+
+                        <input type="hidden"
+                               name="ReorderRequestID"
+                               value="<?= (int)
+                                   $request['ReorderRequestID'] ?>">
+
+                        <input type="hidden"
+                               name="Status"
+                               value="Received">
+
+                        <input type="number"
+                               name="ReceivedQuantity"
+                               min="1"
+                               max="<?= (int) $request['RequestedQuantity'] ?>"
+                               value="<?= (int) ($request['RemainingQuantity'] ?? $request['RequestedQuantity']) ?>"
+                               required>
+
+                        <button type="submit">
+                            Receive
+                        </button>
+
+                    </form>
+
+                <?php elseif (
+                    $currentStatus === 'Received' &&
+                    (int) ($request['RemainingQuantity'] ?? 0) > 0
+                ): ?>
+
+                    <form method="post"
+                          action="<?= $this->url(
+                              'reorder-request/status'
+                          ) ?>">
+
+                        <input type="hidden"
+                               name="ReorderRequestID"
+                               value="<?= (int)
+                                   $request['ReorderRequestID'] ?>">
+
+                        <input type="hidden"
+                               name="Status"
+                               value="Received">
+
+                        <input type="number"
+                               name="ReceivedQuantity"
+                               min="1"
+                               max="<?= (int) $request['RequestedQuantity'] ?>"
+                               value="<?= (int) $request['RemainingQuantity'] ?>"
+                               required>
+
+                        <button type="submit">
+                            Receive
+                        </button>
+
+                    </form>
+
+                <?php elseif (
+                    $currentStatus === 'Received' &&
+                    (int) ($request['RemainingQuantity'] ?? 0) === 0
+                ): ?>
+
+                    <form method="post"
+                          action="<?= $this->url(
+                              'reorder-request/status'
+                          ) ?>">
+
+                        <input type="hidden"
+                               name="ReorderRequestID"
+                               value="<?= (int)
+                                   $request['ReorderRequestID'] ?>">
+
+                        <input type="hidden"
+                               name="Status"
+                               value="Completed">
+
+                        <button type="submit">
+                            Completed
+                        </button>
+
+                    </form>
+
+                <?php else: ?>
+
+                    <span>No action</span>
+
+                <?php endif; ?>
+
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+    </tbody>
+
+</table>
+
+<?php endif; ?>
+

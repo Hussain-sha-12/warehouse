@@ -1,0 +1,26 @@
+{
+    "name": "warehouse/warehouse",
+    "description": "Warehouse Management System",
+    "type": "project",
+    "require": {
+        "php": "^7.0",
+        "zendframework/zend-mvc": "3.1",
+        "zendframework/zend-db": "^2.10",
+        "zendframework/zend-session": "^2.9",
+        "zfcampus/zf-development-mode": "3.2",
+        "zendframework/zend-form": "2.14",
+        "zendframework/zend-i18n": "2.10"
+    },
+    "autoload": {
+    "psr-4": {
+        "Application\\": "module/Application/src/",
+        "Warehouse\\": "module/Warehouse/src/"
+    },
+    "classmap": [
+        "module/Warehouse/Module.php"
+    ]
+ },
+    "scripts": {
+        "serve": "php -S 127.0.0.1:8080 -t public"
+    }
+}

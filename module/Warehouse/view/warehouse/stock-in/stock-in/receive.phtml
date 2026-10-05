@@ -1,0 +1,80 @@
+<h2>Receive Stock</h2>
+
+<?php if ($error): ?>
+
+    <p style="color:red;">
+        <?= $this->escapeHtml($error) ?>
+    </p>
+
+<?php endif; ?>
+
+<p>
+    <strong>Product Code:</strong>
+    <?= $this->escapeHtml($product['ProductCode']) ?>
+</p>
+
+<p>
+    <strong>Product Name:</strong>
+    <?= $this->escapeHtml($product['ProductName']) ?>
+</p>
+
+<p>
+    <strong>Ordered Quantity:</strong>
+    <?= $this->escapeHtml($item['Quantity']) ?>
+</p>
+
+<p>
+    <strong>Already Received:</strong>
+    <?= $this->escapeHtml($received) ?>
+</p>
+
+<p>
+    <strong>Remaining Quantity:</strong>
+    <?= $this->escapeHtml($remaining) ?>
+</p>
+
+<p>
+    <strong>Unit Cost:</strong>
+    <?= $this->escapeHtml($item['UnitCost']) ?>
+</p>
+
+<p>
+    <strong>Total Amount:</strong>
+    <?= $this->escapeHtml($item['TotalAmount']) ?>
+</p>
+
+<?php if ($remaining > 0): ?>
+
+<form method="post">
+
+    <p>
+        <label>Quantity Received</label><br>
+
+        <input
+            type="number"
+            name="Quantity"
+            min="1"
+            max="<?= $this->escapeHtml($remaining) ?>"
+            required
+        >
+    </p>
+
+    <button type="submit">
+        Receive Stock
+    </button>
+
+</form>
+
+<?php else: ?>
+
+    <p style="color:green;">
+        This purchase order item has been fully received.
+    </p>
+
+<?php endif; ?>
+
+<br>
+
+<a href="<?= $this->url('stock-in') ?>">
+    Back
+</a>

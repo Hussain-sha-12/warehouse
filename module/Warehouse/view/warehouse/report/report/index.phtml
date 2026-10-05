@@ -1,0 +1,63 @@
+<h2>Warehouse Reports</h2>
+
+<hr>
+
+<h3>Available Reports</h3>
+
+<table border="1" cellpadding="12" cellspacing="0">
+
+    <tr>
+        <th>Report</th>
+        <th>Description</th>
+        <th>Action</th>
+    </tr>
+
+    <tr>
+        <td>Stock Summary</td>
+        <td>Current stock and low-stock products</td>
+        <td>
+           <a href="<?= $this->url('report-stock') ?>">
+    Open
+</a>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Stock Transactions</td>
+        <td>All Stock IN and Stock OUT transactions</td>
+        <td>
+            <a href="<?= $this->url('report-transactions') ?>">
+                Open
+            </a>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Sales Report</td>
+        <td>Sales orders and customer details</td>
+        <td>
+            <a href="<?= $this->url('report-sales') ?>">
+                Open
+            </a>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Purchase Report</td>
+        <td>Purchase orders and supplier details</td>
+        <td>
+            <a href="<?= $this->url('report-purchases') ?>">
+                Open
+            </a>
+        </td>
+    </tr>
+
+</table>
+
+<hr>
+
+<p>
+    <a href="<?= $this->url('dashboard') ?>">
+        ← Back to Dashboard
+    </a>
+</p>

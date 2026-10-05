@@ -1,0 +1,114 @@
+<?php
+$this->headTitle('Warehouse Management System');
+?>
+
+<?= $this->doctype() ?>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <?= $this->headTitle() ?>
+    <?= $this->headMeta() ?>
+    <?= $this->headLink() ?>
+    <link rel="stylesheet" href="<?= $this->basePath('css/warehouse.css') ?>">
+    <?= $this->headScript() ?>
+</head>
+
+<body>
+
+<div class="warehouse-layout">
+
+    <aside class="warehouse-sidebar">
+
+        <div class="warehouse-brand">
+            <span>W</span>&nbsp; Warehouse
+        </div>
+
+        <nav class="warehouse-menu">
+
+            <div class="warehouse-menu-title">
+                Main
+            </div>
+
+            <a href="/dashboard">Dashboard</a>
+
+            <div class="warehouse-menu-title">
+                Inventory
+            </div>
+
+            <a href="/product">Products</a>
+
+            <a href="/category">Categories</a>
+
+            <a href="/warehouses">Warehouses</a>
+
+            <a href="/inventory">Inventory</a>
+
+            <div class="warehouse-menu-title">
+                Procurement
+            </div>
+
+            <a href="/supplier">Suppliers</a>
+
+            <a href="/purchase">Purchases</a>
+
+            <a href="/purchase">Purchase Orders</a>
+
+            <div class="warehouse-menu-title">
+                Sales
+            </div>
+
+            <a href="/customers">Customers</a>
+
+            <a href="/sales">Sales Orders</a>
+
+            <div class="warehouse-menu-title">
+                Stock Operations
+            </div>
+
+            <a href="/stock-in">Stock IN</a>
+
+            <a href="/stock-out">Stock OUT</a>
+
+            <a href="/stock-transfer">Stock Transfer</a>
+
+            <a href="/stock-adjustment">Stock Adjustment</a>
+
+            <div class="warehouse-menu-title">
+                Management
+            </div>
+
+            <a href="/reorder-request">Reorder Requests</a>
+
+            <a href="/reports">Reports</a>
+
+            <a href="/user-management">Users</a>
+
+        </nav>
+
+    </aside>
+
+    <main class="warehouse-main">
+
+        <header class="warehouse-topbar">
+
+            <h1>Warehouse Management System</h1>
+
+            <div class="warehouse-user">
+                Admin Panel
+            </div>
+
+        </header>
+
+        <section class="warehouse-content">
+
+            <?= $this->content ?>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html><script src="<?= $this->basePath('js/kpi-animation.js') ?>"></script>

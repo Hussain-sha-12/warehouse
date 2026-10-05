@@ -1,0 +1,52 @@
+<h2>Stock IN</h2>
+
+<p>
+    Select a Purchase Order to receive stock.
+</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+
+    <tr>
+        <th>Purchase Order ID</th>
+        <th>Purchase Order Number</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    <?php foreach ($purchaseOrders as $order): ?>
+
+        <tr>
+
+            <td>
+                <?= $this->escapeHtml($order['PurchaseOrderID']) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($order['PurchaseOrderNumber']) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml($order['Status']) ?>
+            </td>
+
+            <td>
+
+                <a href="<?= $this->url('stock-in/items', [
+                    'id' => $order['PurchaseOrderID']
+                ]) ?>">
+                    View Items
+                </a>
+
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>
+
+<br>
+
+<a href="<?= $this->url('inventory') ?>">
+    Inventory
+</a>

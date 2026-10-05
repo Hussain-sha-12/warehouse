@@ -1,0 +1,91 @@
+<h2>Stock Transaction History</h2>
+
+<p>
+    <a href="/warehouse/public/dashboard">
+        Back to Dashboard
+    </a>
+</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+
+    <tr>
+        <th>ID</th>
+        <th>Product</th>
+        <th>Warehouse</th>
+        <th>Transaction Type</th>
+        <th>Quantity</th>
+        <th>Reference</th>
+        <th>Transaction Date</th>
+        <th>Created By</th>
+    </tr>
+
+    <?php foreach ($transactions as $transaction): ?>
+
+        <tr>
+
+            <td>
+                <?= (int) $transaction['TransactionID']; ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $transaction['ProductCode']
+                ); ?>
+                -
+                <?= htmlspecialchars(
+                    $transaction['ProductName']
+                ); ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $transaction['WarehouseCode']
+                ); ?>
+                -
+                <?= htmlspecialchars(
+                    $transaction['WarehouseName']
+                ); ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $transaction['TransactionType']
+                ); ?>
+            </td>
+
+            <td>
+                <?= (int) $transaction['Quantity']; ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $transaction['ReferenceType'] ?? ''
+                ); ?>
+
+                <?php if (
+                    $transaction['ReferenceID'] !== null
+                ): ?>
+
+                    #
+                    <?= (int) $transaction['ReferenceID']; ?>
+
+                <?php endif; ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $transaction['TransactionDate']
+                ); ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $transaction['Username'] ?? 'System'
+                ); ?>
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>

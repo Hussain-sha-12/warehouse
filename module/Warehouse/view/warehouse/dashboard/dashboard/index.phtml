@@ -1,0 +1,186 @@
+﻿<div class="page-header">
+    <div>
+        <h2>Warehouse Dashboard</h2>
+        <p>
+            Welcome,
+            <strong><?= $this->escapeHtml($username) ?></strong>
+        </p>
+    </div>
+</div>
+
+<!-- =========================
+     KPI CARDS
+     ========================= -->
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <h3>Products</h3>
+
+        <div class="number kpi-counter"
+             data-target="<?= (int) $data['products'] ?>">
+            0
+        </div>
+
+        <div class="kpi-progress-ring"
+             data-progress="100">
+            <span>0%</span>
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <h3>Categories</h3>
+
+        <div class="number kpi-counter"
+             data-target="<?= (int) $data['categories'] ?>">
+            0
+        </div>
+
+        <div class="kpi-progress-ring success"
+             data-progress="<?= $data['products'] > 0 ? min(100, (($data['categories'] / $data['products']) * 100)) : 0 ?>">
+            <span>0%</span>
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <h3>Suppliers</h3>
+
+        <div class="number kpi-counter"
+             data-target="<?= (int) $data['suppliers'] ?>">
+            0
+        </div>
+
+        <div class="kpi-progress-ring"
+             data-progress="<?= $data['products'] > 0 ? min(100, (($data['suppliers'] / $data['products']) * 100)) : 0 ?>">
+            <span>0%</span>
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <h3>Purchase Orders</h3>
+
+        <div class="number kpi-counter"
+             data-target="<?= (int) $data['purchaseOrders'] ?>">
+            0
+        </div>
+
+        <div class="kpi-progress-ring warning"
+             data-progress="75">
+            <span>0%</span>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- =========================
+     INVENTORY KPI CARDS
+     ========================= -->
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <h3>Inventory Items</h3>
+
+        <div class="number kpi-counter"
+             data-target="<?= (int) $data['inventoryItems'] ?>">
+            0
+        </div>
+
+        <div class="kpi-progress-ring success"
+             data-progress="<?= $data['products'] > 0 ? min(100, (($data['inventoryItems'] / $data['products']) * 100)) : 0 ?>">
+            <span>0%</span>
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <h3>Total Stock Quantity</h3>
+
+        <div class="number kpi-counter"
+             data-target="<?= (int) $data['totalStock'] ?>">
+            0
+        </div>
+
+        <div class="kpi-progress-ring"
+             data-progress="100">
+            <span>0%</span>
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <h3>Low Stock Items</h3>
+
+        <div class="number kpi-counter"
+             data-target="<?= (int) $data['lowStock'] ?>">
+            0
+        </div>
+
+        <div class="kpi-progress-ring danger"
+             data-progress="<?= $data['inventoryItems'] > 0 ? min(100, (($data['lowStock'] / $data['inventoryItems']) * 100)) : 0 ?>">
+            <span>0%</span>
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <h3>Inventory Health</h3>
+
+        <div class="number">
+            <?= $data['inventoryItems'] > 0
+                ? round(100 - (($data['lowStock'] / $data['inventoryItems']) * 100))
+                : 100 ?>%
+        </div>
+
+        <div class="kpi-progress-ring success"
+             data-progress="<?= $data['inventoryItems'] > 0
+                ? max(0, min(100, 100 - (($data['lowStock'] / $data['inventoryItems']) * 100)))
+                : 100 ?>">
+            <span>0%</span>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- =========================
+     OPERATIONS
+     ========================= -->
+
+<div class="card">
+
+    <div class="page-header">
+        <div>
+            <h2>Warehouse Operations</h2>
+        </div>
+    </div>
+
+    <div class="action-bar">
+
+        <a class="btn btn-success"
+           href="<?= $this->url('stock-in') ?>">
+            Stock IN
+        </a>
+
+        <a class="btn btn-danger"
+           href="<?= $this->url('stock-out') ?>">
+            Stock OUT
+        </a>
+
+        <a class="btn btn-primary"
+           href="<?= $this->url('inventory') ?>">
+            Inventory
+        </a>
+
+        <a class="btn btn-secondary"
+           href="<?= $this->url('logout') ?>">
+            Logout
+        </a>
+
+    </div>
+
+</div>

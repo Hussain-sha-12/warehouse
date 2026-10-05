@@ -1,0 +1,45 @@
+<h1>Add Supplier</h1>
+
+<form method="post" action="/warehouse/public/supplier/add">
+
+    <label>Supplier Code:</label>
+    <br>
+    <input type="text" name="SupplierCode" required>
+
+    <br><br>
+
+    <label>Supplier Name:</label>
+    <br>
+    <input type="text" name="SupplierName" required>
+
+    <br><br>
+
+    <label>Contact Person:</label>
+    <br>
+    <input type="text" name="ContactPerson">
+
+    <br><br>
+
+    <label>Phone:</label>
+    <br>
+    <input type="text" name="Phone">
+
+    <br><br>
+
+    <label>Email:</label>
+    <br>
+    <input type="email" name="Email">
+
+    <br><br>
+
+    <label>Address:</label>
+    <br>
+    <textarea name="Address" rows="5" cols="40"></textarea>
+
+    <br><br>
+
+    <button type="submit">Save Supplier</button>
+
+    <a href="/warehouse/public/supplier">Cancel</a>
+
+</form>

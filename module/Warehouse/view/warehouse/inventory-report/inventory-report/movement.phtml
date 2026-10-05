@@ -1,0 +1,53 @@
+<h2>Product Stock Movement</h2>
+
+<p>
+    <a href="<?= $this->url('inventory-report') ?>">
+        Inventory Report
+    </a>
+</p>
+
+<hr>
+
+<table border="1" cellpadding="8" cellspacing="0">
+
+    <tr>
+        <th>Product Code</th>
+        <th>Product Name</th>
+        <th>Total Stock IN</th>
+        <th>Total Stock OUT</th>
+        <th>Current Stock</th>
+    </tr>
+
+    <?php foreach ($movement as $item): ?>
+
+        <tr>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $item['ProductCode']
+                ) ?>
+            </td>
+
+            <td>
+                <?= $this->escapeHtml(
+                    $item['ProductName']
+                ) ?>
+            </td>
+
+            <td>
+                <?= (int) $item['TotalStockIn'] ?>
+            </td>
+
+            <td>
+                <?= (int) $item['TotalStockOut'] ?>
+            </td>
+
+            <td>
+                <?= (int) $item['CurrentStock'] ?>
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>

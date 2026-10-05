@@ -1,0 +1,107 @@
+<h2>User Management</h2>
+
+<p>
+    <a href="<?= $this->url('user-management-create') ?>">
+        Create New User
+    </a>
+</p>
+
+<table border="1" cellpadding="10" cellspacing="0">
+
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Created Date</th>
+        <th>Action</th>
+    </tr>
+
+    <?php if (count($users) === 0): ?>
+
+        <tr>
+            <td colspan="6">
+                No users found.
+            </td>
+        </tr>
+
+    <?php else: ?>
+
+        <?php foreach ($users as $user): ?>
+
+            <tr>
+
+                <td>
+                    <?= (int) $user['UserID'] ?>
+                </td>
+
+                <td>
+                    <?= $this->escapeHtml(
+                        $user['Username']
+                    ) ?>
+                </td>
+
+                <td>
+                    <?= $this->escapeHtml(
+                        $user['RoleName']
+                    ) ?>
+                </td>
+
+                <td>
+                    <?= $user['IsActive']
+                        ? 'Active'
+                        : 'Inactive'
+                    ?>
+                </td>
+
+                <td>
+                    <?= $this->escapeHtml(
+                        $user['CreatedDate']
+                    ) ?>
+                </td>
+
+                <td>
+
+                    <a href="<?= $this->url(
+                        'user-management-edit',
+                        ['id' => $user['UserID']]
+                    ) ?>">
+                        Edit
+                    </a>
+
+                    |
+
+                    <a href="<?= $this->url(
+                        'user-management-password',
+                        ['id' => $user['UserID']]
+                    ) ?>">
+                        Password
+                    </a>
+
+                    |
+
+                    <a href="<?= $this->url(
+                        'user-management-delete',
+                        ['id' => $user['UserID']]
+                    ) ?>"
+                       onclick="return confirm('Deactivate this user?');">
+                        Deactivate
+                    </a>
+
+                </td>
+
+            </tr>
+
+        <?php endforeach; ?>
+
+    <?php endif; ?>
+
+</table>
+
+<hr>
+
+<p>
+    <a href="<?= $this->url('dashboard') ?>">
+        ← Dashboard
+    </a>
+</p>

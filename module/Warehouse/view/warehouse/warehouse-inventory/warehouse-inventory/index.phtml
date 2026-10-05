@@ -1,0 +1,73 @@
+<h2>Warehouse Inventory</h2>
+
+<p>
+    <a href="/warehouse/public/dashboard">
+        Back to Dashboard
+    </a>
+</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+
+    <tr>
+        <th>ID</th>
+        <th>Product</th>
+        <th>Warehouse</th>
+        <th>Quantity</th>
+        <th>Reorder Level</th>
+        <th>Status</th>
+        <th>Last Updated</th>
+    </tr>
+
+    <?php foreach ($inventory as $item): ?>
+
+        <tr>
+
+            <td>
+                <?= (int) $item['WarehouseInventoryID']; ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $item['ProductCode']
+                ); ?>
+                -
+                <?= htmlspecialchars(
+                    $item['ProductName']
+                ); ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $item['WarehouseCode']
+                ); ?>
+                -
+                <?= htmlspecialchars(
+                    $item['WarehouseName']
+                ); ?>
+            </td>
+
+            <td>
+                <?= (int) $item['Quantity']; ?>
+            </td>
+
+            <td>
+                <?= (int) $item['ReorderLevel']; ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $item['StockStatus']
+                ); ?>
+            </td>
+
+            <td>
+                <?= htmlspecialchars(
+                    $item['LastUpdated']
+                ); ?>
+            </td>
+
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>

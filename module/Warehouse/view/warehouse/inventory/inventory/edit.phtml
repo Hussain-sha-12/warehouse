@@ -1,0 +1,62 @@
+<h2>Edit Inventory</h2>
+
+<form method="post">
+
+    <p>
+        <label>Product</label><br>
+
+        <select name="ProductID" required>
+
+            <option value="">-- Select Product --</option>
+
+            <?php foreach ($products as $product): ?>
+
+                <option
+                    value="<?= $this->escapeHtml($product['ProductID']) ?>"
+                    <?= ($product['ProductID'] == $inventory['ProductID']) ? 'selected' : '' ?>
+                >
+                    <?= $this->escapeHtml($product['ProductCode']) ?>
+                    -
+                    <?= $this->escapeHtml($product['ProductName']) ?>
+                </option>
+
+            <?php endforeach; ?>
+
+        </select>
+    </p>
+
+    <p>
+        <label>Quantity</label><br>
+
+        <input
+            type="number"
+            name="Quantity"
+            min="0"
+            value="<?= $this->escapeHtml($inventory['Quantity']) ?>"
+            required
+        >
+    </p>
+
+    <p>
+        <label>Reorder Level</label><br>
+
+        <input
+            type="number"
+            name="ReorderLevel"
+            min="0"
+            value="<?= $this->escapeHtml($inventory['ReorderLevel']) ?>"
+            required
+        >
+    </p>
+
+    <button type="submit">
+        Update Inventory
+    </button>
+
+</form>
+
+<br>
+
+<a href="<?= $this->url('inventory') ?>">
+    Back
+</a>
